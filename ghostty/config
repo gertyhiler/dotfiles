@@ -1,0 +1,4 @@
+custom-shader = shaders/ghostty-cursor-trails/boo-cursor.glsl
+custom-shader-animation = always
+font-family = FiraCode Nerd Font Mono Reg
+font-family-bold = FiraCode Nerd Font Mono Bold
