@@ -164,3 +164,6 @@ ln -s "$HOME/dotfiles/projects/p" "$HOME/.local/bin/p"
 Configure each machine using the submodule README. Machine names, SSH aliases,
 project roots, cache and history stay local and are not committed. The standalone
 shell functions can be reused with the documented `opener` configuration.
+
+The Zsh worktree picker has a real-terminal regression test (requires Python 3,
+Zsh, Git and fzf): `python3 -m unittest discover -s zsh/tests -v`.
