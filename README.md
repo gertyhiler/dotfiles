@@ -14,6 +14,7 @@ One folder per application. Manual symlinks. No installer or platform framework.
 | `git/` | Global ignore rules and an optional Git config include | Mac |
 | `herdr/` | Agent panel preferences | Mac |
 | `hunk/` | Usage note; no configuration to link yet | Mac |
+| `projects/` | [Local/SSH project picker](https://github.com/gertyhiler/projects), pinned Git submodule | Shared |
 | `nvim/` | [My Neovim configuration](https://github.com/gertyhiler/layzy-nvim), pinned as a Git submodule | Shared |
 | `tmux/` | Key bindings, status line and plugin declarations | Mac |
 
@@ -139,3 +140,27 @@ Review and commit the updated submodule pointer in dotfiles. If you edit Neovim 
 ## What stays local
 
 Credentials, shell history, logs, caches, sessions, generated Fish state and Git identity are not part of this repository. Avoid linking an application's entire state directory when a file-level link is enough.
+
+## Projects and worktrees
+
+`gwl` lists worktrees, `gw` picks one and changes directory, and `gwn` picks one
+and opens Neovim. `gw /absolute/path` and `gwn /absolute/path` skip the picker.
+These functions need Git and fzf, and work without the projects CLI.
+
+Zsh: link `zsh/projects.zsh` to `~/.config/zsh/projects.zsh`; the tracked `.zshrc`
+sources it. If keeping your own `.zshrc`, add that source line manually.
+Fish: link `fish/functions/gw.fish`, `gwn.fish`, and `gwl.fish` individually into
+`~/.config/fish/functions/`. Preserve unrelated machine configuration.
+
+The separate `projects` submodule provides `p`: one local/SSH project picker
+with recent history and optional Herdr opening. Initialize it, then link manually:
+
+```sh
+git submodule update --init projects
+mkdir -p ~/.local/bin ~/.config/projects
+ln -s "$HOME/dotfiles/projects/p" "$HOME/.local/bin/p"
+```
+
+Configure each machine using the submodule README. Machine names, SSH aliases,
+project roots, cache and history stay local and are not committed. The standalone
+shell functions can be reused with the documented `opener` configuration.

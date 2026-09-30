@@ -138,3 +138,6 @@ eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Standalone project/worktree functions, linked separately.
+[[ ! -f ~/.config/zsh/projects.zsh ]] || source ~/.config/zsh/projects.zsh
