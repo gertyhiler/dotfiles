@@ -167,3 +167,9 @@ shell functions can be reused with the documented `opener` configuration.
 
 The Zsh worktree picker has a real-terminal regression test (requires Python 3,
 Zsh, Git and fzf): `python3 -m unittest discover -s zsh/tests -v`.
+
+The Zsh `projects.zsh` file also defines `p`; Fish users should link
+`fish/functions/p.fish` into `~/.config/fish/functions/`. This wrapper keeps a
+selected local directory in the calling shell after the editor exits. Reload
+Zsh with `source ~/.config/zsh/projects.zsh` in existing terminals. The standalone
+`command p` executable cannot change its parent shell directory.

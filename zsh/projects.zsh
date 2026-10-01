@@ -31,3 +31,24 @@ function gw() {
 function gwn() {
   gw "$@" && command nvim .
 }
+
+# The function changes the caller's directory; the CLI owns selection/opening.
+unalias p 2>/dev/null
+function p() {
+  local result dir code
+  if [[ -n $PROJECTS_CONFIG && $PROJECTS_CONFIG != /* ]]; then
+    local -x PROJECTS_CONFIG="$PWD/$PROJECTS_CONFIG"
+  fi
+  result=$(mktemp "${TMPDIR:-/tmp}/projects-shell.XXXXXXXX") || return 1
+  command p --shell-result "$result" "$@"
+  code=$?
+  if (( code == 0 )) && [[ -s $result ]]; then
+    IFS= read -r -d '' dir < "$result"
+    command rm -f -- "$result"
+    builtin cd -- "$dir" || return
+    command p --open-local "$dir" --backend direct
+    return $?
+  fi
+  command rm -f -- "$result"
+  return $code
+}
